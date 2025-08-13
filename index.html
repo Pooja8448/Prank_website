@@ -20,21 +20,19 @@
       margin-bottom:30px; text-align:center;
     }
     .blue-button {
-  background-color: blue;
-  color: #fff;
-  padding: 15px 25px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Add smooth animation */
-}
-
-.blue-button:hover {
-  background-color: darkblue;
-  transform: scale(1.05);
-}
-
+      background-color: blue;
+      color: #fff;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .blue-button:hover {
+      background-color: darkblue;
+      transform: scale(1.05);
+    }
 
     /* Login Page */
     .login-bg {
@@ -54,11 +52,20 @@
       background-color:green; color:#fff; padding:12px 20px;
       border:none; border-radius:10px; font-size:1rem; cursor:pointer;
     }
+    .submit-button:hover {
+      background-color: darkgreen;
+      transform: scale(1.05);
+      transition: 0.3s ease;
+    }
     .login-back {
       margin-top:12px; background:#FF5733; color:#fff; border:none;
       padding:10px 16px; border-radius:8px; cursor:pointer;
     }
-    .login-back:hover { background:#c13d20; }
+    .login-back:hover {
+      background: #c13d20;
+      transform: scale(1.05);
+      transition: 0.3s ease;
+    }
 
     /* Congratulations Page */
     .congrats-bg {
@@ -85,6 +92,11 @@
       width:20px; height:20px; background:gold; border-radius:50%;
       box-shadow:-12px 0 0 gold, 12px 0 0 gold; z-index:2; animation:bowBounce 1s infinite ease-in-out;
     }
+    .gift-button:hover {
+      background: linear-gradient(45deg, #cc0000, #ff4d4d);
+      transform: scale(1.05) rotate(1deg);
+      transition: 0.3s ease;
+    }
     @keyframes bowBounce {
       0%,100%{ transform:translate(-50%,-50%) scale(1) }
       50%{ transform:translate(-50%,-50%) scale(1.2) }
@@ -108,40 +120,13 @@
     .big-emoji { font-size:8rem; animation:bounceEmoji 1s infinite ease-in-out; }
     @keyframes bounceEmoji { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
 
-    /* Make sure this is LAST so it wins over .center-screen/.login-bg etc. */
+    /* Hide elements */
     .hidden { display:none !important; }
-<style>
-  /* Hover styles for buttons */
-  .blue-button:hover {
-    background-color: darkblue;
-    transform: scale(1.05);
-    transition: 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: darkgreen;
-    transform: scale(1.05);
-    transition: 0.3s ease;
-  }
-
-  .login-back:hover {
-    background: #c13d20;
-    transform: scale(1.05);
-    transition: 0.3s ease;
-  }
-
-  .gift-button:hover {
-    background: linear-gradient(45deg, #cc0000, #ff4d4d);
-    transform: scale(1.05) rotate(1deg);
-    transition: 0.3s ease;
-  }
-</style>
-
   </style>
 </head>
 <body>
 
-  <!-- Welcome Screen (visible first) -->
+  <!-- Welcome Screen -->
   <div id="welcomeScreen" class="center-screen welcome-bg">
     <h1 class="welcome-text">Welcome to my Login Page</h1>
     <button id="nextBtn" class="blue-button" type="button">Click here to go next</button>
@@ -174,12 +159,12 @@
   <!-- Prank Screen -->
   <div id="prankScreen" class="hidden prank-bg">
     <div class="prank-box">
-      <h1 class="prank-text">Yeahhh 🤣 I fooled you! 🤪 There is no gift, it was a prank! 🎉😂</h1>
+      <h1 class="prank-text"></h1>
       <div class="big-emoji">🤡</div>
     </div>
   </div>
 
-  <!-- Inline JS -->
+  <!-- JavaScript -->
   <script>
     const welcomeScreen   = document.getElementById('welcomeScreen');
     const loginScreen     = document.getElementById('loginScreen');
@@ -191,6 +176,8 @@
     const loginForm       = document.getElementById('loginForm');
     const congratsMessage = document.getElementById('congratsMessage');
     const giftBtn         = document.getElementById('giftBtn');
+
+    let userName = ''; // store name globally
 
     // Go to login screen
     nextBtn.addEventListener('click', () => {
@@ -207,10 +194,10 @@
     // Submit login -> congrats
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const name = document.getElementById('name').value.trim();
+      userName = document.getElementById('name').value.trim();
       loginScreen.classList.add('hidden');
       congratsMessage.textContent =
-        `Congratulations ${name || 'Friend'}! You are eligible for this free gift 🎁`;
+        `Congratulations ${userName || 'Friend'}! You are eligible for this free gift 🎁`;
       congratsScreen.classList.remove('hidden');
     });
 
@@ -218,6 +205,8 @@
     giftBtn.addEventListener('click', () => {
       congratsScreen.classList.add('hidden');
       prankScreen.classList.remove('hidden');
+      document.querySelector('.prank-text').textContent =
+        `Yeahhh ${userName || 'Friend'} 🤣 I fooled you! 🤪 There is no gift, it was a prank! 🎉😂`;
     });
   </script>
 </body>
