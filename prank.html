@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun Prank Website</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; }
+
+    /* Center Screen Layout */
+    .center-screen {
+      height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center;
+    }
+
+    /* Welcome Page */
+    .welcome-bg { background-color:#96FFCD; padding:20px; }
+    .welcome-text {
+      color:#40144C; font-size:3rem; font-weight:bolder;
+      margin-bottom:30px; text-align:center;
+    }
+    .blue-button {
+  background-color: blue;
+  color: #fff;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Add smooth animation */
+}
+
+.blue-button:hover {
+  background-color: darkblue;
+  transform: scale(1.05);
+}
+
+
+    /* Login Page */
+    .login-bg {
+      background:linear-gradient(135deg,#A1C4FD,#C2E9FB);
+      height:100vh; display:flex; justify-content:center; align-items:center;
+    }
+    .login-box {
+      background:#fff; padding:30px; border-radius:15px;
+      box-shadow:0 5px 15px rgba(0,0,0,.3); text-align:center; width:320px;
+    }
+    .login-title { font-size:2rem; margin-bottom:20px; color:#40144C; }
+    .login-box input {
+      display:block; width:100%; padding:10px; margin:10px 0;
+      font-size:1rem; border:1px solid #ccc; border-radius:8px;
+    }
+    .submit-button {
+      background-color:green; color:#fff; padding:12px 20px;
+      border:none; border-radius:10px; font-size:1rem; cursor:pointer;
+    }
+    .login-back {
+      margin-top:12px; background:#FF5733; color:#fff; border:none;
+      padding:10px 16px; border-radius:8px; cursor:pointer;
+    }
+    .login-back:hover { background:#c13d20; }
+
+    /* Congratulations Page */
+    .congrats-bg {
+      background:linear-gradient(135deg,#FFB6C1,#FF69B4,#FF1493);
+      height:100vh; display:flex; justify-content:center; align-items:center;
+    }
+    .congrats-box {
+      background:rgba(255,255,255,.15); padding:30px; border-radius:15px;
+      box-shadow:0 8px 20px rgba(0,0,0,.3); text-align:center; backdrop-filter:blur(8px);
+    }
+    .gift-button {
+      background:linear-gradient(45deg,#ff0000,#ff6666); color:#fff;
+      padding:15px 30px; border:none; border-radius:15px; font-size:1.5rem; font-weight:bold;
+      position:relative; cursor:pointer; margin-top:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,.3); display:flex; align-items:center; gap:10px; z-index:1;
+    }
+    .gift-button::before, .gift-button::after {
+      content:''; position:absolute; background-color:gold; z-index:0;
+    }
+    .gift-button::before { height:100%; width:8px; left:50%; transform:translateX(-50%); }
+    .gift-button::after { height:8px; width:100%; top:50%; transform:translateY(-50%); }
+    .gift-button .bow {
+      position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
+      width:20px; height:20px; background:gold; border-radius:50%;
+      box-shadow:-12px 0 0 gold, 12px 0 0 gold; z-index:2; animation:bowBounce 1s infinite ease-in-out;
+    }
+    @keyframes bowBounce {
+      0%,100%{ transform:translate(-50%,-50%) scale(1) }
+      50%{ transform:translate(-50%,-50%) scale(1.2) }
+    }
+
+    /* Prank Page */
+    .prank-bg {
+      background:linear-gradient(135deg,#ff9d76,#ff6f61,#ff3f81);
+      height:100vh; display:flex; justify-content:center; align-items:center;
+    }
+    .prank-box {
+      background:rgba(255,255,255,.2); padding:40px; border-radius:20px;
+      text-align:center; backdrop-filter:blur(8px); box-shadow:0 10px 25px rgba(0,0,0,.3);
+      max-width:600px;
+    }
+    .prank-text {
+      font-family:'Comic Sans MS', cursive, sans-serif;
+      font-size:2rem; font-weight:bold; color:#fff700;
+      text-shadow:2px 2px 5px rgba(0,0,0,.6); margin-bottom:20px;
+    }
+    .big-emoji { font-size:8rem; animation:bounceEmoji 1s infinite ease-in-out; }
+    @keyframes bounceEmoji { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+
+    /* Make sure this is LAST so it wins over .center-screen/.login-bg etc. */
+    .hidden { display:none !important; }
+<style>
+  /* Hover styles for buttons */
+  .blue-button:hover {
+    background-color: darkblue;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: darkgreen;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+  }
+
+  .login-back:hover {
+    background: #c13d20;
+    transform: scale(1.05);
+    transition: 0.3s ease;
+  }
+
+  .gift-button:hover {
+    background: linear-gradient(45deg, #cc0000, #ff4d4d);
+    transform: scale(1.05) rotate(1deg);
+    transition: 0.3s ease;
+  }
+</style>
+
+  </style>
+</head>
+<body>
+
+  <!-- Welcome Screen (visible first) -->
+  <div id="welcomeScreen" class="center-screen welcome-bg">
+    <h1 class="welcome-text">Welcome to my Login Page</h1>
+    <button id="nextBtn" class="blue-button" type="button">Click here to go next</button>
+  </div>
+
+  <!-- Login Screen -->
+  <div id="loginScreen" class="hidden login-bg">
+    <div class="login-box">
+      <h2 class="login-title">Login</h2>
+      <form id="loginForm">
+        <input type="text" id="name" placeholder="Enter Name" required />
+        <input type="email" id="email" placeholder="Enter Email" required />
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+      <button id="backToWelcome" class="login-back" type="button">Back</button>
+    </div>
+  </div>
+
+  <!-- Congratulations Screen -->
+  <div id="congratsScreen" class="hidden center-screen congrats-bg">
+    <div class="congrats-box">
+      <h2 id="congratsMessage" style="color:#fff;"></h2>
+      <button id="giftBtn" class="gift-button" type="button">
+        <span class="bow"></span>
+        🎁 Click here
+      </button>
+    </div>
+  </div>
+
+  <!-- Prank Screen -->
+  <div id="prankScreen" class="hidden prank-bg">
+    <div class="prank-box">
+      <h1 class="prank-text">Yeahhh 🤣 I fooled you! 🤪 There is no gift, it was a prank! 🎉😂</h1>
+      <div class="big-emoji">🤡</div>
+    </div>
+  </div>
+
+  <!-- Inline JS -->
+  <script>
+    const welcomeScreen   = document.getElementById('welcomeScreen');
+    const loginScreen     = document.getElementById('loginScreen');
+    const congratsScreen  = document.getElementById('congratsScreen');
+    const prankScreen     = document.getElementById('prankScreen');
+
+    const nextBtn         = document.getElementById('nextBtn');
+    const backToWelcome   = document.getElementById('backToWelcome');
+    const loginForm       = document.getElementById('loginForm');
+    const congratsMessage = document.getElementById('congratsMessage');
+    const giftBtn         = document.getElementById('giftBtn');
+
+    // Go to login screen
+    nextBtn.addEventListener('click', () => {
+      welcomeScreen.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+    });
+
+    // Back to welcome from login
+    backToWelcome.addEventListener('click', () => {
+      loginScreen.classList.add('hidden');
+      welcomeScreen.classList.remove('hidden');
+    });
+
+    // Submit login -> congrats
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      loginScreen.classList.add('hidden');
+      congratsMessage.textContent =
+        `Congratulations ${name || 'Friend'}! You are eligible for this free gift 🎁`;
+      congratsScreen.classList.remove('hidden');
+    });
+
+    // Gift -> prank
+    giftBtn.addEventListener('click', () => {
+      congratsScreen.classList.add('hidden');
+      prankScreen.classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
